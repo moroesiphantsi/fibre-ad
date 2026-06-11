@@ -95,6 +95,38 @@ const AdminLogin = () => {
           Login
         </Button>
 
+<Box
+  sx={{
+    mt: 2,
+    textAlign: "center",
+  }}
+>
+  <Typography
+    variant="body2"
+    sx={{ color: "gray", fontSize: 13 }}
+  >
+    Don&apos;t have an account?
+  </Typography>
+
+  <Typography
+    onClick={() => navigate("/admin/signup")}
+    sx={{
+      color: "#4DA3FF",
+      fontWeight: "bold",
+      cursor: "pointer",
+      mt: 0.5,
+      fontSize: 14,
+      transition: "0.3s",
+      "&:hover": {
+        color: "#0066FF",
+        textDecoration: "underline",
+      },
+    }}
+  >
+    Create Admin Account
+  </Typography>
+</Box>
+
         <Typography
           textAlign="center"
           sx={{ mt: 2, fontSize: 13, color: "gray" }}

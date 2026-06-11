@@ -407,14 +407,27 @@ const handlePackageChange = (e: any) => {
 
       {/* 🧾 MODAL FORM */}
       <Modal
-        open={openForm}
-        onClose={() => setOpenForm(false)}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{ timeout: 500 }}
-      >
+  open={openForm}
+  onClose={() => setOpenForm(false)}
+  closeAfterTransition
+  BackdropComponent={Backdrop}
+  BackdropProps={{ timeout: 500 }}
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    p: 2,
+  }}
+>
         <Fade in={openForm}>
           <Box sx={modalStyle}>
+  <Box
+    sx={{
+      display: "flex",
+      flexDirection: "column",
+      gap: 1,
+    }}
+  >
             <Typography variant="h4" fontWeight="bold">
               Check Availability
             </Typography>
@@ -580,6 +593,8 @@ const handlePackageChange = (e: any) => {
               Submit Request
             </Button>
           </Box>
+           </Box>
+           
         </Fade>
       </Modal>
 
@@ -616,9 +631,33 @@ const modalStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+
+  width: {
+    xs: "95%",
+    sm: 450,
+  },
+
+  maxHeight: "90vh",
+  overflowY: "auto",
+
   bgcolor: "white",
   borderRadius: 4,
   boxShadow: 24,
   p: 4,
+
+  /* Nice modern scrollbar */
+  "&::-webkit-scrollbar": {
+    width: "8px",
+  },
+  "&::-webkit-scrollbar-track": {
+    background: "#f1f1f1",
+    borderRadius: "10px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    background: "#4DA3FF",
+    borderRadius: "10px",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    background: "#0066FF",
+  },
 };
