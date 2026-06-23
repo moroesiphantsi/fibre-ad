@@ -30,7 +30,6 @@ import { db } from "../firebase";
 import StatsCards from "../components/StatsCards";
 import ExportExcel from "../components/ExportExcel";
 import AgentAssign from "../components/AgentAssign";
-import AIHelper from "../components/AIHelper";
 
 const Leads = () => {
   const [leads, setLeads] = useState<any[]>([]);
@@ -69,54 +68,6 @@ const Leads = () => {
       .includes(search.toLowerCase())
   );
 
-  const getWhatsAppMessage = (lead: any) => {
-  switch (lead.status) {
-    case "Contacted":
-      return `Hello ${lead.name},
-
-Thank you for your interest in our fibre services.
-
-One of our consultants has reviewed your application and will contact you shortly.
-
-Package: ${lead.packagePlan}
-Price: ${lead.price}
-
-Internet Fibre Team`;
-
-    case "Installed":
-      return `Hello ${lead.name},
-
-Great news 🎉
-
-Your fibre installation has been completed successfully.
-
-Package: ${lead.packagePlan}
-Price: ${lead.price}
-
-Thank you for choosing Internet Fibre.`;
-
-    case "Cancelled":
-      return `Hello ${lead.name},
-
-Your fibre application has been cancelled.
-
-If this was done in error or you would like to reapply, please contact us.
-
-Internet Fibre Team`;
-
-    default:
-      return `Hello ${lead.name},
-
-Your fibre application has been received successfully.
-
-Package: ${lead.packagePlan}
-Price: ${lead.price}
-
-Our team will contact you shortly.
-
-Internet Fibre Team`;
-  }
-};
 
   return (
     <Box sx={{ bgcolor: "#0f172a", minHeight: "100vh", py: 4 }}>
