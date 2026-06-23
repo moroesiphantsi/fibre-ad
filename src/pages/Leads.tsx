@@ -69,6 +69,55 @@ const Leads = () => {
       .includes(search.toLowerCase())
   );
 
+  const getWhatsAppMessage = (lead: any) => {
+  switch (lead.status) {
+    case "Contacted":
+      return `Hello ${lead.name},
+
+Thank you for your interest in our fibre services.
+
+One of our consultants has reviewed your application and will contact you shortly.
+
+Package: ${lead.packagePlan}
+Price: ${lead.price}
+
+Internet Fibre Team`;
+
+    case "Installed":
+      return `Hello ${lead.name},
+
+Great news 🎉
+
+Your fibre installation has been completed successfully.
+
+Package: ${lead.packagePlan}
+Price: ${lead.price}
+
+Thank you for choosing Internet Fibre.`;
+
+    case "Cancelled":
+      return `Hello ${lead.name},
+
+Your fibre application has been cancelled.
+
+If this was done in error or you would like to reapply, please contact us.
+
+Internet Fibre Team`;
+
+    default:
+      return `Hello ${lead.name},
+
+Your fibre application has been received successfully.
+
+Package: ${lead.packagePlan}
+Price: ${lead.price}
+
+Our team will contact you shortly.
+
+Internet Fibre Team`;
+  }
+};
+
   return (
     <Box sx={{ bgcolor: "#0f172a", minHeight: "100vh", py: 4 }}>
       <Container maxWidth="xl">
@@ -156,38 +205,61 @@ const Leads = () => {
                   </Button>
                 </Box>
 
-                {/* AI BUTTON */}
-                <Box sx={{ mt: 2 }}>
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    onClick={AIHelper(lead)}
-                  >
-                    🤖 Smart WhatsApp Reply
-                  </Button>
-                </Box>
 
                 {/* ACTION BUTTONS */}
                 <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
 
                   <IconButton
-                    onClick={() =>
-                      window.open(
-                        `https://wa.me/27685932102${lead.contact.replace(/\D/g, "")}`,
-                        "_blank"
-                      )
-                    }
-                    sx={{ color: "#25D366" }}
-                  >
-                    <WhatsApp />
-                  </IconButton>
+  onClick={() => {
+    const phone = lead.contact?.replace(/\D/g, "");
+
+    const message = `Hello ${lead.name},
+
+Your Fibre Application Status: ${lead.status || "New"}
+
+Selected Package: ${lead.packagePlan || "N/A"}
+Price: ${lead.price || "N/A"}
+
+Thank you for choosing our fibre services.
+
+Kind Regards,
+Internet Fibre Team`;
+
+    window.open(
+      `https://wa.me/27${phone.startsWith("0") ? phone.substring(1) : phone}?text=${encodeURIComponent(message)}`,
+      "_blank"
+    );
+  }}
+  sx={{ color: "#25D366" }}
+>
+  <WhatsApp />
+</IconButton>
 
                   <IconButton
-                    onClick={() => window.open(`mailto:${lead.email}`)}
-                    sx={{ color: "#3b82f6" }}
-                  >
-                    <Email />
-                  </IconButton>
+  onClick={() => {
+    const subject = `Fibre Application Update - ${lead.status}`;
+
+    const body = `Hello ${lead.name},
+
+Your Fibre Application Status: ${lead.status || "New"}
+
+Selected Package: ${lead.packagePlan || "N/A"}
+Price: ${lead.price || "N/A"}
+
+Thank you for choosing Internet Fibre.
+
+Kind Regards,
+Internet Fibre Team`;
+
+    window.open(
+      `mailto:${lead.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    );
+  }}
+  sx={{ color: "#3b82f6" }}
+>
+  <Email />
+</IconButton>
+
 
                   <IconButton
                     onClick={() => deleteLead(lead.id)}
